@@ -35,9 +35,9 @@
 		methods:{
 			PostPractica:function(){
 				this.$api.post(`/postPractica`,{
-					number_practice:this.pracount+1,
-					title:'Práctica ',
-					materia_id:this.materia,
+					number_practice:parseInt(this.pracount+1),
+					title:'Práctica\n',
+					materia_id:this.materia._id,
 				}).then(response=>{
 					if(response.status==200){
 						this.$eventbus.$emit('createpractice')
@@ -45,8 +45,9 @@
 						toastr.success(response.data.message)
 					}
 				}).catch(error=>{
-					if (error.status==500) {
-						toastr.error(error.data.message)
+					if (error.response.status==422) {
+						$('#myModal').modal('hide');
+						toastr.error(error.response.data.number_practice.msg)
 					}
 				})
 			}

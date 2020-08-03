@@ -7,6 +7,21 @@ export default new Router({
   
   routes: [
     {
+      path:'/connectionerror',
+      name:'connectionerror',
+      component:()=>import(/* webpackChunkName: "home" */'./components/errors/errorconnection.vue')
+    },
+    {
+      path:'/error500',
+      name:'error500',
+      component:()=>import(/* webpackChunkName: "home" */'./components/errors/error500.vue')
+    },
+    {
+      path:'/error404',
+      name:'error404',
+      component:()=>import(/* webpackChunkName: "home" */'./components/errors/error404.vue')
+    },
+    {
       path: '/',
       name: 'home',
       component: () => import(/* webpackChunkName: "home" */'./components/materias/MateriaIndex.vue')

@@ -23,17 +23,23 @@ export default {
   name:'listado',
   data(){
     return{
-      materias:[]
+      materias:[],
     }
   },
   created(){
-    this.$store.commit('SET_LAYOUT','layoutInicio')
     this.getMaterias()
+  },
+  mounted(){
+    this.$store.commit('SET_LAYOUT','layoutInicio')  
   },
   methods:{
     getMaterias(){
-      this.$api.get('/materia').then(response=>{
+      this.$api.get('/materia')
+      .then(response=>{
         this.materias=response.data.materia
+      })
+      .catch(error=>{
+         
       })  
     }
   }

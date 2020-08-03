@@ -4,16 +4,7 @@
 	</div>
 </template>
 <script>
-//import Vue from 'vue'
-//import VuejsDialog from "vuejs-dialog"
-Vue.use(VuejsDialog,{
-	html: true, 
-    loader: true,
-    okText: 'Eliminar',
-    cancelText: 'Cancelar',
-    animation: 'bounce',
-    reverse:true 
-})
+
 	export default{
 		name:'deletePractice',
 		props:['practice'],
@@ -24,28 +15,23 @@ Vue.use(VuejsDialog,{
 		},
 		methods:{
 			dePractice:function(){
-				
-				/*this.$dialog.confirm("¿Esta seguro de eliminar la practica?", {
-	    			loader: true 
-				})	.then((dialog) => {
-
-	        	setTimeout(() => {
-	        	this.$api.delete(`/deletePractica/${this.practice}`)
+				let confirmDelete=confirm(`¿Desea eliminar la práctica?`)
+				if (confirmDelete) {
+					this.$api.delete(`/deletePractica/${this.practice}`)
 					 .then(response=>{
 					 	if (response.status==200) {
 					 		this.$eventbus.$emit('deletepractice')
-					 		dialog.close()
-	     					toastr.error('Eliminado Correctamente')
+					 		toastr.error('Eliminado Correctamente')
 					 	}	
 					 }).catch(error=>{
-					 	if (error.status==500) {
-					 		dialog.close()
-	     					toastr.error(response.data.message)
+					 	if (error.response.status==500) {
+					 		toastr.error(error.response.data.message)
 					 	}
 					 })
-				})
-	 			})*/
-			}
+					}	
+				}
+				
+				
 		}
 	}
 </script>

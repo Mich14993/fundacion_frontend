@@ -15,7 +15,7 @@
 	 		<h1 class="alineaciontexto colortitle">LISTA DE PRACTICAS</h1>
 	 	</div>
 	 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	 		<createPractice :materia='materia' :pracount="practicas_count"/>
+	 		<createPractice :materia='materia' :pracount="practicas.length"/>
 	 	</div>
 	 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	 		<div v-for="pra in practicas">
@@ -31,7 +31,6 @@
 			  	</div>
 			  	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			  		<router-link :to="'/test/'+pra._id" class="btn btn-success btn-md">ver mas >></router-link>
-			  		
 			  	</div>
 			  </div>
 			</div>
@@ -50,11 +49,11 @@
         	return{
         		materia:{},
         		practicas:[],
-        		practicas_count:Number,
         		errors:[]
         	}
         },
         created () {
+
             this.$store.commit('SET_LAYOUT', 'layoutPractica')
             this.getPracticas();
             this.$eventbus.$on('createpractice',()=>{
@@ -66,11 +65,11 @@
         },
         methods:{
         	getPracticas:function(){
+        		let prueba
         		this.$api.get(`/getPractica/${this.$route.params.id}`)
         		.then(response=>{
         			this.materia=response.data.materia,
-        			this.practicas=response.data.practicas,
-        			this.practicas_count=response.data.practicas_count
+        			this.practicas=response.data.practicas
         		}).catch(error=>{
         			this.errors=error
         		})
